@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections;
+using System;
 
 namespace SkribblProject
 {
@@ -11,6 +13,10 @@ namespace SkribblProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Vector2 position;
+        ArrayList positions = new ArrayList();
+        int point = 0;
+        Texture2D rectTexture;
 
         public Game1()
         {
@@ -62,6 +68,19 @@ namespace SkribblProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Color[] data = new Color[10 * 10];
+                rectTexture = new Texture2D(GraphicsDevice, 10, 10);
+                position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+
+                for (int i = 0; i < data.Length; ++i)
+                    data[i] = Color.Black;
+
+                rectTexture.SetData(data);
+                positions.Add(position);
+            }
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -73,7 +92,16 @@ namespace SkribblProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
+            spriteBatch.Begin();
+
+            foreach (Vector2 pos in positions)
+            {
+                spriteBatch.Draw(rectTexture, pos, Color.Black);
+                Console.WriteLine(positions.Count);
+            }
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
