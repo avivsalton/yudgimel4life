@@ -15,8 +15,13 @@ namespace SkribblProject
         SpriteBatch spriteBatch;
         Vector2 position;
         ArrayList positions = new ArrayList();
+        ArrayList sentPos = new ArrayList();
         int point = 0;
         Texture2D rectTexture;
+        Vector2 cursorPos;
+        Color[] data = new Color[10 * 10];
+        Client c;
+
 
         public Game1()
         {
@@ -33,6 +38,13 @@ namespace SkribblProject
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            for (int i = 0; i < data.Length; ++i)
+                data[i] = Color.Black;
+
+            c = new Client("127.0.0.1", 1616);
+            c.Connect();
+
+            rectTexture = new Texture2D(GraphicsDevice, 10, 10);
 
             base.Initialize();
         }
@@ -65,20 +77,17 @@ namespace SkribblProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Console.WriteLine(gameTime.ElapsedGameTime.TotalSeconds);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             if(Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                Color[] data = new Color[10 * 10];
-                rectTexture = new Texture2D(GraphicsDevice, 10, 10);
                 position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 
-                for (int i = 0; i < data.Length; ++i)
-                    data[i] = Color.Black;
-
                 rectTexture.SetData(data);
-                positions.Add(position);
+                if (!positions.Contains(position))
+                    positions.Add(position);
             }
 
             // TODO: Add your update logic here
@@ -95,10 +104,19 @@ namespace SkribblProject
             GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
 
+            cursorPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            Texture2D cursor = new Texture2D(GraphicsDevice, 10, 10);
+            cursor.SetData(data);
+            spriteBatch.Draw(cursor, cursorPos, Color.Black);
+
             foreach (Vector2 pos in positions)
             {
                 spriteBatch.Draw(rectTexture, pos, Color.Black);
-                Console.WriteLine(positions.Count);
+                if (!sentPos.Contains(pos))
+                {
+                    c.Send(Convert.ToString(pos.X) + "," + Convert.ToString(pos.Y));
+                    sentPos.Add(sentPos);
+                }
             }
 
             spriteBatch.End();
