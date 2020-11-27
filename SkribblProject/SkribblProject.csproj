@@ -45,9 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cient.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Drawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Viewer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

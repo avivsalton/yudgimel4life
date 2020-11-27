@@ -9,19 +9,21 @@ namespace SkribblProject
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Viewer : Game
+    public class Drawer : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 position;
         ArrayList positions = new ArrayList();
+        ArrayList sentPos = new ArrayList();
+        int point = 0;
         Texture2D rectTexture;
+        Vector2 cursorPos;
         Color[] data = new Color[10 * 10];
         Client c;
-        int i = 0;
 
 
-        public Viewer()
+        public Drawer()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -42,10 +44,9 @@ namespace SkribblProject
             c = new Client("127.0.0.1", 1616);
             c.Connect();
 
-            rectTexture = new Texture2D(GraphicsDevice, 10, 10);
-            rectTexture.SetData(data);
+            Window.Title = "Drawer";
 
-            Window.Title = "Viewer";
+            rectTexture = new Texture2D(GraphicsDevice, 10, 10);
 
             base.Initialize();
         }
@@ -81,6 +82,15 @@ namespace SkribblProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+
+                rectTexture.SetData(data);
+                if (!positions.Contains(position))
+                    positions.Add(position);
+            }
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -95,19 +105,19 @@ namespace SkribblProject
             GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
 
-            int[] intPos = c.getPos();
-            Vector2 drawerPos = new Vector2(intPos[0], intPos[1]);
-            if (!positions.Contains(drawerPos))
-            {
-                positions.Add(drawerPos);
-                Console.WriteLine("not added: " + drawerPos);
-            }
-
+            cursorPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            Texture2D cursor = new Texture2D(GraphicsDevice, 10, 10);
+            cursor.SetData(data);
+            spriteBatch.Draw(cursor, cursorPos, Color.Black);
 
             foreach (Vector2 pos in positions)
             {
-                Console.WriteLine(++i);
                 spriteBatch.Draw(rectTexture, pos, Color.Black);
+                if (!sentPos.Contains(pos))
+                {
+                    c.Send(Convert.ToString(pos.X) + " " + Convert.ToString(pos.Y));
+                    sentPos.Add(sentPos);
+                }
             }
 
             spriteBatch.End();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
@@ -54,12 +55,19 @@ namespace SkribblProject
             sender.Send(messageSent);
         }
 
-        public Texture2D Draw()
+        public int[] getPos()
         {
-            byte[] data = new byte[1024];
+            byte[] data = new byte[7];
             sender.Receive(data);
-            string pos = Encoding.UTF8.GetString(data);
-            string[] position = pos.Split(",");
+            string posi = Encoding.UTF8.GetString(data);
+            if (posi == "")
+            {
+                return null;
+            }
+            string pos = posi.Replace('?', ' ');
+            string[] positionStr = pos.Split();
+            int[] position = { int.Parse(positionStr[0]), int.Parse(positionStr[1]) };
+            return position;
         }
     }
     abstract class Online
