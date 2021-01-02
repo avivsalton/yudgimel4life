@@ -27,11 +27,7 @@ namespace SkribblProject
         [STAThread]
         static void Main()
         {
-            Thread t1 = new Thread(new ThreadStart(runDrawer));
-            Thread t2 = new Thread(new ThreadStart(runViewer));
-
-            t2.Start();
-            t1.Start();
+            runDrawer();
         }
     }
 #endif

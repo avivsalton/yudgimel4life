@@ -26,10 +26,11 @@ namespace SkribblProject
     {
         string ip;
         int port;
-        Socket sender;
         IPEndPoint localEndPoint;
+        UdpClient sender;
         public Client(string ip, int port)
         {
+            this.sender = new UdpClient(port);
             this.ip = ip;
             this.port = port;
             this.CreateThread();
@@ -37,11 +38,10 @@ namespace SkribblProject
             IPHostEntry host = Dns.GetHostEntry(ip);
             IPAddress ipAddr = host.AddressList[0];
             this.localEndPoint = new IPEndPoint(ipAddr, this.port);
-            this.sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
         protected override void openSocket()
         {
-            
+
         }
 
         public void Connect()
@@ -52,13 +52,13 @@ namespace SkribblProject
         public void Send(string data)
         {
             byte[] messageSent = Encoding.UTF8.GetBytes(data);
-            sender.Send(messageSent);
+            sender.Send(messageSent, messageSent.Length);
         }
 
         public int[] getPos()
         {
             byte[] data = new byte[7];
-            sender.Receive(data);
+            sender.Receive(ref localEndPoint);
             string posi = Encoding.UTF8.GetString(data);
             if (posi == "")
             {

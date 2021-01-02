@@ -1,10 +1,9 @@
-from socket import socket
+import socket
 from threading import Thread
 import time
 
-s = socket()
-s.bind(("127.0.0.1", 1616))
-s.listen(5)
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(("0.0.0.0", 60000))
 
 conns = []
 started = []
@@ -12,7 +11,7 @@ started = []
 def recieveData(client):
     conn, addr = client
     while (1):
-        data = conn.recv(1024)
+        data = conn.recvfrom(1024)
         print (data.decode("UTF-8"))
         if data == "":
             print("Client disconnected :(")
@@ -27,10 +26,13 @@ def recieveData(client):
 print("Listening...")
 
 while (1):
-    client = s.accept()
-    conn, addr = client
-    conns.append(client)
+    data, addr = s.recvfrom(1024)
     print("Connection: ", addr)
-    t1 = Thread(target=recieveData, args=[client])
-    t1.start()
+    if (data == "viewer"):
+        conns.append(addr)
+        continue
+    print("Data: ", data)
+    for a in conns:
+        print(a)
+        s.sendto(data, a)
 

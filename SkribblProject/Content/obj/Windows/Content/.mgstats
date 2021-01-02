@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/button.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/Content/button.xnb","TextureProcessor","Texture2DContent",17858,40085,0.1317537
+"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/cartr.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/Content/cartr.xnb","TextureProcessor","Texture2DContent",32280,97765,0.1342511

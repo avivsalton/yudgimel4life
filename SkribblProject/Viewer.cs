@@ -39,7 +39,7 @@ namespace SkribblProject
             for (int i = 0; i < data.Length; ++i)
                 data[i] = Color.Black;
 
-            c = new Client("127.0.0.1", 1616);
+            c = new Client("127.0.0.1", 1617);
             c.Connect();
 
             rectTexture = new Texture2D(GraphicsDevice, 10, 10);
