@@ -46,8 +46,8 @@
   <ItemGroup>
     <Compile Include="ButtonItem.cs" />
     <Compile Include="Cient.cs" />
+    <Compile Include="Controls\Actions.cs" />
     <Compile Include="Controls\Button.cs" />
-    <Compile Include="ColoringActions.cs" />
     <Compile Include="Controls\Situations.cs" />
     <Compile Include="DrawableObject.cs" />
     <Compile Include="Drawer.cs" />

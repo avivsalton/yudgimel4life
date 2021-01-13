@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/cartr.png</SourceFile>
-  <SourceTime>2021-01-01T18:13:37.8614616+02:00</SourceTime>
-  <DestFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/cartr.xnb</DestFile>
-  <DestTime>2021-01-13T15:55:12.3003151+02:00</DestTime>
+  <SourceFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/eraser.png</SourceFile>
+  <SourceTime>2021-01-13T15:52:20.62009+02:00</SourceTime>
+  <DestFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/eraser.xnb</DestFile>
+  <DestTime>2021-01-13T15:55:12.304807+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T18:35:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -6,8 +6,10 @@
   <SourceFiles>
     <File>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/button.png</File>
     <File>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/cartr.png</File>
+    <File>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/eraser.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

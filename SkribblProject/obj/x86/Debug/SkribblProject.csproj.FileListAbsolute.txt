@@ -23,3 +23,4 @@ c:\users\avivs\source\repos\SkribblProject\SkribblProject\obj\x86\Debug\SkribblP
 c:\users\avivs\source\repos\SkribblProject\SkribblProject\obj\x86\Debug\SkribblProject.pdb
 C:\Users\avivs\source\repos\SkribblProject\SkribblProject\bin\Windows\x86\Debug\Content\button.xnb
 C:\Users\avivs\source\repos\SkribblProject\SkribblProject\bin\Windows\x86\Debug\Content\cartr.xnb
+C:\Users\avivs\source\repos\SkribblProject\SkribblProject\bin\Windows\x86\Debug\Content\eraser.xnb

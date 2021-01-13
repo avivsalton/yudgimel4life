@@ -18,9 +18,11 @@ namespace SkribblProject
         List<Tuple<Vector2, Color>> positions = new List<Tuple<Vector2, Color>>();
         List<Tuple<Vector2, Color>> sentPos = new List<Tuple<Vector2, Color>>();
         int point = 0;
-        Texture2D rectTexture;
+        bool isEraser = false;
+        Controls.ColorAction color;
+        Texture2D cursor;
+        Texture2D eraser;
         Vector2 cursorPos;
-        Color[] data = new Color[10 * 10];
         Client c;
         Controls.Button butt;
         Color currColor = Color.Black;
@@ -44,17 +46,16 @@ namespace SkribblProject
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            for (int i = 0; i < data.Length; ++i)
-                data[i] = currColor;
 
             //c = new Client("10.100.102.147", 6967);
             //c.Connect();
 
             Window.Title = "Drawer";
+            
+            color = new Controls.ColorAction(GraphicsDevice);
 
-            rectTexture = new Texture2D(GraphicsDevice, 10, 10);
-
-
+            cursor = new Texture2D(GraphicsDevice, 10, 10);
+            cursor = new Texture2D(GraphicsDevice, 20, 20);
 
             base.Initialize();
         }
@@ -73,7 +74,8 @@ namespace SkribblProject
                 new Controls.Button(Content.Load<Texture2D>("button"), new Vector2(50, 0), Color.Blue, new Vector2(0, 0)),
                 new Controls.Button(Content.Load<Texture2D>("button"), new Vector2(100, 0), Color.Red, new Vector2(0, 0)),
                 new Controls.Button(Content.Load<Texture2D>("button"), new Vector2(150, 0), Color.Yellow, new Vector2(0, 0)),
-                new Controls.Button(Content.Load<Texture2D>("button"), new Vector2(200, 0), Color.Green, new Vector2(0, 0))
+                new Controls.Button(Content.Load<Texture2D>("button"), new Vector2(200, 0), Color.Green, new Vector2(0, 0)),
+                new Controls.Button(Content.Load<Texture2D>("eraser"), new Vector2(250, 0), Color.White, new Vector2(0, 0))
             };
 
             // TODO: use this.Content to load your game content here
@@ -107,17 +109,29 @@ namespace SkribblProject
 
                 foreach (Tuple<Vector2, Color> poss in positions)
                 {
-                    if (poss.Item1 == pos.Item1)
+                    if (poss.Item1 == pos.Item1 && poss.Item2 == pos.Item2)
                     {
                         toAdd = false;
                         break;
                     }
                 }
 
-                if(toAdd)
+                if (toAdd)
                 {
-                    rectTexture.SetData(data);
-                    positions.Add(pos);
+                    if (!isEraser)
+                        positions.Add(pos);
+                    else
+                    {
+                        foreach (Tuple<Vector2, Color> poss in positions)
+                        {
+                            if (Mouse.GetState().X <= poss.Item1.X + eraser.Width && Mouse.GetState().X >= poss.Item1.X - eraser.Width
+                            && Mouse.GetState().Y <= poss.Item1.Y + eraser.Height && Mouse.GetState().Y >= poss.Item1.Y - eraser.Height)
+                            {
+                                positions.Remove(poss);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -138,23 +152,39 @@ namespace SkribblProject
             for (int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].draw(spriteBatch);
-                if (buttons[i].getStatus() == Controls.Status.Clicked)
-                    currColor = buttons[i].getColor();
+                if (i != 5)
+                {
+                    if (buttons[i].getStatus() == Controls.Status.Clicked)
+                    {
+                        currColor = buttons[i].getColor();
+                        isEraser = false;
+                    }
+                }
+                else
+                {
+                    if (buttons[i].getStatus() == Controls.Status.Clicked)
+                    {
+                        currColor = Color.Black;
+                        isEraser = true;
+                    }
+
+                }
             }
 
-            for (int j = 0; j < data.Length; ++j)
-            {
-                data[j] = currColor;
-            }
+            color.changeColor(currColor);
+
 
             cursorPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            Texture2D cursor = new Texture2D(GraphicsDevice, 10, 10);
-            cursor.SetData(data);
-            spriteBatch.Draw(cursor, cursorPos, currColor);
+            cursor.SetData(color.getData());
+            if (!isEraser)
+                spriteBatch.Draw(cursor, cursorPos, currColor);
+            else
+                spriteBatch.Draw(eraser, cursorPos, currColor);
 
             foreach (Tuple<Vector2, Color> pos in positions)
             {
-                spriteBatch.Draw(rectTexture, pos.Item1, pos.Item2);
+                color.changeColor(pos.Item2);
+                spriteBatch.Draw(color.getRect(), pos.Item1, pos.Item2);
                 if (!sentPos.Contains(pos))
                 {
                     //c.Send(Convert.ToString(pos.X) + " " + Convert.ToString(pos.Y));

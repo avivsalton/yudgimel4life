@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/button.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/button.xnb","TextureProcessor","Texture2DContent",20494,40085,0.111304
-"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/cartr.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/cartr.xnb","TextureProcessor","Texture2DContent",32280,97765,0.1082985
+"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/button.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/button.xnb","TextureProcessor","Texture2DContent",17858,40085,0.2764858
+"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/cartr.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/cartr.xnb","TextureProcessor","Texture2DContent",32280,97765,0.0069873
+"C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/eraser.png","C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/eraser.xnb","TextureProcessor","Texture2DContent",2864,40085,0.0039916

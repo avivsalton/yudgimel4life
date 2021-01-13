@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/button.png</SourceFile>
-  <SourceTime>2021-01-01T18:00:09.802632+02:00</SourceTime>
+  <SourceTime>2021-01-01T21:18:20.2163783+02:00</SourceTime>
   <DestFile>C:/Users/avivs/source/repos/SkribblProject/SkribblProject/Content/bin/Windows/button.xnb</DestFile>
-  <DestTime>2021-01-01T18:05:33.404364+02:00</DestTime>
+  <DestTime>2021-01-13T15:55:12.282849+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T18:35:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
